@@ -9,6 +9,7 @@ const Layout = (props: { children?: any}) => (
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet"/>
         <link rel='stylesheet' href='/css/style.css'/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="/js/htmx.js"></script>
     </head>
     <body>
