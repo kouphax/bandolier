@@ -13,7 +13,7 @@ const Layout = (props: { children?: any}) => (
     </head>
     <body>
     <div id="stage">
-        <sub>[whats my genre?]</sub>
+        <sub>[whats genre of music is this band?]</sub>
         { props.children }
     </div>
     </body>
