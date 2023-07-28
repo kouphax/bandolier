@@ -1,3 +1,4 @@
+-- Migration number: 0000 	 2023-07-28T15:00:59.563Z
 drop table if exists band_name_genre_counts;
 drop table if exists yay_nays;
 drop table if exists band_names;
@@ -102,7 +103,6 @@ values ('Heavy Metal'),
        ('Ambient'),
        ('Trance'),
        ('Soundtrack'),
-       ('Kpop'),
        ('Christian'),
        ('Acoustic Pop'),
        ('Post-Grunge'),
