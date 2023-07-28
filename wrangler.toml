@@ -1,0 +1,10 @@
+name = "bandolier"
+compatibility_date = "2023-01-01"
+
+[site]
+bucket = "./assets"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "bandolier"
+database_id = "b9435ab0-f64b-40a5-b0d3-75aa84e5fcab"

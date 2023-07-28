@@ -1,0 +1,60 @@
+body {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+}
+
+
+sub {
+    font-size: 1.3em;
+}
+#stage {
+    margin-top: 8em;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 0 2em ;
+}
+
+h2 {
+    font-size: 3em;
+}
+
+#genres {
+    margin: 2em;
+    font-size: 1.5em;
+}
+
+button {
+    margin: 1em 1em 2em 1em;
+    font-size: 0.8em;
+    padding: 1em;
+}
+
+
+.bar {
+    display: inline-block;
+    width: var(--width);
+    background-color: black;
+    opacity: 0.2;
+}
+
+
+.genre-chart {
+    width: 400px;
+    text-align: left;
+    margin: 0 auto;
+    line-height: 40px;
+    margin-top: -2em;
+}
+
+
+.title {
+    color:black;
+    font-weight: bold;
+    position:relative;
+    padding-left: 10px;
+    top:40px;
+    font-size: 1.2em;
+    opacity: 1;
+}
