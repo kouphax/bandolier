@@ -2,6 +2,7 @@ import {Context} from "hono";
 import {ApplicationBindings, GenreTotal, GenreTotalWithPct, RefData, YayNayTotal} from "./types";
 import {main, Opinion, view} from "./views";
 import {z} from "zod";
+import {incrementNay, incrementYay, markReal, voteForGenre} from "./queries";
 
 const SelectGenreBodySchema = z.object({
     genre: z.coerce.number()
@@ -40,47 +41,23 @@ export const handleGenreSelection = async (c: Context<ApplicationBindings>) => {
     if (body.success) {
         const bandId = parseInt(c.req.param('id'), 10)
         const genreId = body.data.genre;
-        await c.env.DB.prepare(`
-            insert or
-            replace into band_name_genre_counts(band_name_id, genre_id, total)
-            values (?1,
-                    ?2,
-                    coalesce((select total + 1
-                              from band_name_genre_counts
-                              where band_name_id = ?1
-                                and genre_id = ?2), 1))`)
-            .bind(bandId, genreId)
-            .run();
+        await voteForGenre(c.env.DB, bandId, genreId);
     }
 
-    return c.redirect("/");
+
+    c.header("HX-Location", "/")
+    return c.text("");
 }
 
 export const handleYay = async (c: Context<ApplicationBindings>) => {
     const id = parseInt(c.req.param('id'), 10)
-
-    await c.env.DB.prepare(`
-        insert or
-        replace into yay_nays(band_name_id, yay_count, nay_count)
-        values (?1,
-                coalesce((select yay_count + 1 from yay_nays where band_name_id = ?1), 1),
-                coalesce((select nay_count from yay_nays where band_name_id = ?1), 0))`)
-        .bind(id)
-        .run();
-
+    await incrementYay(c.env.DB, id);
     return c.html(Opinion(id, false))
 }
 
 export const handleNay = async (c: Context<ApplicationBindings>) => {
     const id = parseInt(c.req.param('id'), 10)
-    await c.env.DB.prepare(`
-        insert or
-        replace into yay_nays(band_name_id, nay_count, yay_count)
-        values (?,
-                coalesce((select nay_count + 1 from yay_nays where band_name_id = ?), 1),
-                coalesce((select yay_count from yay_nays where band_name_id = ?), 0))`)
-        .bind(id, id, id)
-        .run()
+    await incrementNay(c.env.DB, id);
     return c.html(Opinion(id, false))
 }
 
@@ -113,4 +90,13 @@ export const handleView = async (c: Context<ApplicationBindings>) => {
             })
 
     return c.html(view(band, toPercentages(topGenres), yayNays))
+}
+
+
+export const handleReal = async (c: Context<ApplicationBindings>) => {
+    const id = parseInt(c.req.param('id'), 10)
+    await markReal(c.env.DB, id);
+
+    c.header("HX-Location", "/")
+    return c.text("");
 }

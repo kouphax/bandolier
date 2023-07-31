@@ -5,12 +5,16 @@ const Layout = (props: { children?: any}) => (
     <html>
     <head>
         <title>bandolier</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+        <link rel="manifest" href="/site.webmanifest"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet"/>
-        <link rel='stylesheet' href='/css/style.css'/>
+        <link rel='stylesheet' href='/static/css/style.css'/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="/js/htmx.js"></script>
+        <script src="/static/js/htmx.js"></script>
     </head>
     <body>
     <div id="stage">
@@ -35,7 +39,7 @@ export const main = (band: RefData, genres: RefData[]) => (<Layout>
             ))
         }
         <p><a href=''>None of these genres fit</a></p>
-        <p><a href=''>This is a real band</a></p>
+        <p><a hx-patch={`/${band.id}/real`} href=''>This is a real band</a></p>
     </div>
 </Layout>)
 
